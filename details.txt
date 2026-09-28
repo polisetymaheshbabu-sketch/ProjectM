@@ -1,0 +1,623 @@
+
+
+==============================================================================
+   COLLEGE FACULTY RECORD MANAGEMENT SYSTEM  (Project-M)
+   Roles, Operations, Purpose, Benefits and Development Blueprint
+==============================================================================
+
+Based on the project report "Online College Faculty Record Management System"
+and on the system as built so far (PHP + MySQL, running on XAMPP).
+
+CONTENTS
+  1. What the system is
+  2. Users of the system (roles)
+  3. Public visitor (no login)
+  4. ADMIN - web options, operations, and how to perform them
+  5. SUB-ADMIN - web options, operations, and how to perform them
+  6. FACULTY - web options, operations, and how to perform them
+  7. Role comparison table
+  8. Important reasons for developing this system
+  9. How the system helps college management (topics)
+ 10. Blueprint: structure of the overall project
+ 11. Current status and recommended next steps
+
+
+==============================================================================
+1. WHAT THE SYSTEM IS
+==============================================================================
+
+A web-based application that replaces paper registers and scattered
+spreadsheets with one central database of colleges and faculty. It has a
+public website (Home, About, Faculty Directory, Contact) and three login-based
+areas: Admin, Sub-Admin, and Faculty. Each role sees only the pages and
+operations meant for it.
+
+Technology: PHP (server logic), MySQL (database), HTML/CSS/Bootstrap
+(interface), JavaScript (small interactions), Apache via XAMPP (local server).
+
+
+==============================================================================
+2. USERS OF THE SYSTEM (ROLES)
+==============================================================================
+
+  ROLE          LOGIN?   PURPOSE
+  ------------  -------  ----------------------------------------------------
+  Visitor       No       Browses the public website and faculty directory.
+  Admin         Yes      Full control: sub-admins, colleges, faculty, account.
+  Sub-Admin     Yes      Day-to-day management of colleges and faculty.
+  Faculty       Yes      Views and updates their own profile only.
+
+All three login roles use ONE login page (login.php). The system checks the
+username against the admins, faculty, and subadmins tables and sends the
+person to the correct dashboard automatically.
+
+
+==============================================================================
+3. PUBLIC VISITOR (NO LOGIN)
+==============================================================================
+
+Web options (top navigation bar):
+  - Home            : hero slideshow, system introduction, feature cards,
+                      live statistics (faculty, colleges, sub-admins).
+  - About Us        : description of the platform, mission and vision.
+  - Faculty         : directory of all faculty as cards (photo, name,
+                      designation) with a "View Details" button.
+  - Contact Us      : contact information and enquiry form.
+  - Login           : goes to the unified login page.
+
+Operations:
+  - Browse the faculty directory.
+      How: open Faculty from the menu.
+  - View one faculty member's full details (designation, gender,
+    qualifications, phone, email, joining date, address, college).
+      How: click "View Details" on a faculty card.
+  - Send an enquiry through the contact form.
+      How: fill in the Contact Us form and submit.
+
+Visitors cannot add, edit, or delete anything.
+
+
+==============================================================================
+4. ADMIN
+==============================================================================
+
+The Admin is the highest role. There is normally one admin account
+(default: username "admin"). Login: Login page -> enter admin credentials ->
+redirected to Admin Dashboard.
+
+4.1 WEB OPTIONS (left sidebar of the Admin Panel)
+-----------------------------------------------------------------------------
+  Dashboard
+  SUB-ADMIN MANAGEMENT
+      Add Sub-Admin
+      Manage Sub-Admins
+  COLLEGE MANAGEMENT
+      Add College
+      Manage Colleges
+  FACULTY MANAGEMENT
+      Add Faculty
+      Manage Faculty
+  ACCOUNT
+      Update Profile Picture
+      Change Password
+      Logout
+
+4.2 OPERATIONS AND HOW TO PERFORM THEM
+-----------------------------------------------------------------------------
+DASHBOARD
+  What : Summary of the whole system.
+  Shows: total sub-admins, total faculty, total colleges, the 5 most recently
+         added faculty, the 5 most recently added colleges, and quick-action
+         buttons.
+  How  : Open Dashboard (it is the landing page after login). Click a
+         "View All" button to jump to the matching management list.
+
+SUB-ADMIN MANAGEMENT
+  Add Sub-Admin
+    What : Create a new sub-admin account.
+    How  : Sidebar -> Add Sub-Admin -> enter name, email, username,
+           password, profile type (for example "Sub-Admin" or
+           "College Admin") -> Save.
+  Manage Sub-Admins
+    What : View, search, edit, and delete sub-admins.
+    How  : Sidebar -> Manage Sub-Admins. Type in the search box to filter.
+           Click Edit to change details, or Delete to remove an account
+           (a confirmation prompt appears).
+
+COLLEGE MANAGEMENT
+  Add College
+    What : Register a new college.
+    How  : Sidebar -> Add College -> college name, unique college code,
+           address, phone, email -> Save.
+  Manage Colleges
+    What : View, search, edit, delete colleges.
+    How  : Sidebar -> Manage Colleges -> use Edit / Delete on each row.
+           Deleting a college does not delete its faculty; their college
+           field simply becomes empty (N/A).
+
+FACULTY MANAGEMENT
+  Add Faculty
+    What : Create a faculty record.
+    How  : Sidebar -> Add Faculty -> name, college, gender, designation,
+           qualifications, phone, email, joining date, address, and
+           (optionally) a portal username and password -> Save.
+  Manage Faculty
+    What : View, search, edit, delete faculty records.
+    How  : Sidebar -> Manage Faculty -> Edit or Delete on each row.
+           The search box filters by any text in the table.
+
+ACCOUNT
+  Update Profile Picture
+    How  : Sidebar -> Update Profile Picture -> choose an image
+           (JPG/PNG/WEBP, max 2 MB) -> Upload.
+  Change Password
+    How  : Sidebar -> Change Password -> current password, new password
+           (minimum 6 characters), confirm -> Update Password.
+  Forgot Password
+    What : Recovery when the password is forgotten.
+    How  : Login page -> "Forgot Password?" -> enter username and
+           registered email -> submit.
+  Logout
+    How  : Sidebar -> Logout (bottom of the sidebar). The session ends and
+           the login page opens.
+
+WEBSITE PAGES (from the project report)
+  What : The About Us and Contact Us text is stored in the "pages" table so
+         the admin can change it without touching code.
+  Note : Editing these pages from the admin panel is described in the report;
+         see Section 11 for its build status.
+
+
+==============================================================================
+5. SUB-ADMIN
+==============================================================================
+
+A Sub-Admin is a trusted staff member (for example a college coordinator or
+registrar) who handles routine data entry. Sub-admins are created by the
+Admin. They cannot create other sub-admins and cannot reach the Admin Panel.
+Login: same login page -> redirected to Sub-Admin Dashboard.
+
+5.1 WEB OPTIONS (left sidebar of the Sub-Admin Panel)
+-----------------------------------------------------------------------------
+  Dashboard
+  COLLEGE MANAGEMENT
+      Add College
+      Manage Colleges
+  FACULTY MANAGEMENT
+      Add Faculty
+      Manage Faculty
+  ACCOUNT
+      Update Profile Picture
+      Change Password
+      Logout
+
+5.2 OPERATIONS AND HOW TO PERFORM THEM
+-----------------------------------------------------------------------------
+  Dashboard        : shows total faculty, total colleges, recent faculty
+                     additions, and quick-action buttons.
+                     How: it opens automatically after login.
+  Add College      : Sidebar -> Add College -> fill the form -> Save.
+                     A duplicate college code is rejected.
+  Manage Colleges  : Sidebar -> Manage Colleges -> search, Edit, or Delete.
+  Add Faculty      : Sidebar -> Add Faculty -> fill the form -> Save.
+                     A portal username and password can be set here so the
+                     faculty member can log in. A duplicate username is
+                     rejected.
+  Manage Faculty   : Sidebar -> Manage Faculty -> search, Edit, or Delete.
+  Update Profile Picture : Sidebar -> Update Profile Picture -> choose image
+                     -> Upload (JPG/PNG/WEBP, max 2 MB).
+  Change Password  : Sidebar -> Change Password -> current, new, confirm.
+  Logout           : Sidebar -> Logout.
+
+What a Sub-Admin cannot do:
+  - Add, edit, or delete sub-admins or admins.
+  - Open any page inside the admin/ area.
+
+Optional extension: the "profile" field (Sub-Admin / College Admin) is stored
+in the database and can be used later to give different permissions to
+different profile types.
+
+
+==============================================================================
+6. FACULTY
+==============================================================================
+
+A Faculty member is a teacher whose record is stored in the system. Once an
+admin or sub-admin gives them a username and password, they can log in to see
+and maintain their own record. They can only ever see and change their OWN
+profile.
+Login: same login page -> redirected to the Faculty Dashboard.
+
+6.1 WEB OPTIONS
+-----------------------------------------------------------------------------
+  Faculty Dashboard (My Profile)
+  Edit Profile
+  Logout
+  (After login the public navigation bar also shows "My Profile" and
+   "Logout" in place of "Login".)
+
+6.2 OPERATIONS AND HOW TO PERFORM THEM
+-----------------------------------------------------------------------------
+  View My Profile
+    What : See profile photo, name, designation, college, gender,
+           qualifications, phone, email, joining date, and address.
+    How  : Opens automatically after login, or click "My Profile" in the
+           top menu.
+
+  Edit Profile
+    What : Update personal details.
+    Editable fields: full name, qualifications, phone, email, address, and
+           profile picture.
+    How  : Dashboard -> Edit Profile -> change the fields -> Save Changes.
+           To change the photo, choose a new image (JPG/PNG/WEBP, max 2 MB)
+           before saving; leave it empty to keep the current photo.
+    Locked fields: designation, gender, and college are read-only, because
+           they are official records controlled by the admin or sub-admin.
+           If one needs changing, the faculty member asks the admin.
+
+  Logout
+    How  : Click Logout in the top bar or menu.
+
+What Faculty cannot do:
+  - View or edit any other faculty member's record.
+  - Add or delete colleges, faculty, or accounts.
+  - Enter the Admin or Sub-Admin panels.
+
+
+==============================================================================
+7. ROLE COMPARISON TABLE
+==============================================================================
+
+  OPERATION                        VISITOR  FACULTY  SUB-ADMIN  ADMIN
+  -------------------------------  -------  -------  ---------  -----
+  View public pages / directory      Yes      Yes       Yes      Yes
+  View a faculty member's details    Yes      Yes       Yes      Yes
+  Login required                     No       Yes       Yes      Yes
+  Edit own profile details           -        Yes       -        -
+  Update own profile picture         -        Yes       Yes      Yes
+  Change own password                -        (*)       Yes      Yes
+  Add / edit / delete faculty        -        -         Yes      Yes
+  Add / edit / delete colleges       -        -         Yes      Yes
+  Add / edit / delete sub-admins     -        -         -        Yes
+  See system-wide statistics         Home     -         Yes      Yes
+  Manage website pages               -        -         -        Yes (**)
+
+  (*)  Faculty password change is not built yet; see Section 11.
+  (**) See Section 11 for build status.
+
+
+==============================================================================
+8. IMPORTANT REASONS FOR DEVELOPING THIS SYSTEM
+==============================================================================
+
+1. Replace paper registers.
+   Faculty records kept in registers take a lot of space, are easy to damage
+   or lose, and are slow to search.
+
+2. Remove manual calculation errors.
+   Counts and reports done by hand are error-prone. The system calculates
+   totals automatically.
+
+3. Save time.
+   Finding one faculty record in a register can take minutes; with search it
+   takes seconds. Adding or updating a record is one short form.
+
+4. Keep data consistent and free of duplicates.
+   One central database means one version of the truth. Rules such as unique
+   college codes and unique usernames prevent duplicate entries.
+
+5. Give data structure.
+   The old approach stores data in no fixed format. The system stores every
+   record in a defined layout (name, designation, qualifications, contact
+   details, joining date, and so on).
+
+6. Control who can see and change what.
+   Role-based access means faculty cannot touch other people's data and
+   sub-admins cannot manage admins.
+
+7. Let faculty keep their own information current.
+   Faculty update their own phone, email, address, and photo, so records stay
+   accurate without extra work for the office.
+
+8. Make information available anywhere.
+   Being web-based, records can be reached from any device with a browser on
+   the network, not only from one office computer.
+
+9. Support better decisions.
+   Live counts and recent-activity lists give management a quick picture of
+   the institution.
+
+10. Reduce administrative cost and workload.
+    Less paper, less rework, and fewer people needed for routine data entry.
+
+11. Be scalable and cheap to run.
+    PHP, MySQL, and Apache are free and can grow with the number of colleges
+    and faculty.
+
+12. Provide a public face for the institution.
+    The faculty directory and About/Contact pages let students and parents
+    find information without contacting the office.
+
+
+==============================================================================
+9. HOW THE SYSTEM HELPS COLLEGE MANAGEMENT (TOPICS)
+==============================================================================
+
+  A. Centralised faculty database
+     All personal, academic, and contact details of every faculty member in
+     one place.
+
+  B. Multi-college management
+     Many colleges can be registered, and each faculty member is linked to a
+     college, giving a clear view of staffing per institution.
+
+  C. Faster record maintenance
+     Add, update, and delete operations with search make daily upkeep quick.
+
+  D. Role-based access and delegation
+     The admin delegates routine work to sub-admins while keeping control of
+     accounts and settings.
+
+  E. Faculty self-service
+     Faculty maintain their own contact details and photo.
+
+  F. Transparency and accessibility
+     Faculty can see exactly what information the institution holds about
+     them; the public can see an official faculty directory.
+
+  G. Real-time statistics
+     Dashboards show total faculty, colleges, and sub-admins and the latest
+     additions, with no manual counting.
+
+  H. Data accuracy and integrity
+     Input validation, unique keys, and foreign keys (faculty linked to
+     colleges) keep data correct and connected.
+
+  I. Security
+     Login with session control, pages protected by role checks, and password
+     handling (see Section 11 for recommended hardening).
+
+  J. Reduced paperwork and storage
+     Digital records replace registers and filing cabinets.
+
+  K. Better communication
+     A contact form and a public directory make it easy for outsiders to
+     reach the institution.
+
+  L. Foundation for growth
+     The same structure can later carry attendance, leave, payroll,
+     research publications, timetables, notices, and reports.
+
+  M. Backup and recovery
+     A single database can be backed up easily and restored, unlike loose
+     paper records.
+
+
+==============================================================================
+10. BLUEPRINT: STRUCTURE OF THE OVERALL PROJECT
+==============================================================================
+
+10.1 DEVELOPMENT APPROACH (from the report: SDLC Waterfall model)
+-----------------------------------------------------------------------------
+  Phase 1  Requirement gathering : define roles, modules, and reports needed.
+  Phase 2  Analysis / planning   : feasibility (economic, technical, social),
+                                    risks, schedule.
+  Phase 3  Design                : data flow, use-case, class, and sequence
+                                    diagrams; database design; screen layouts.
+  Phase 4  Coding                : build database, then pages, role by role.
+  Phase 5  Testing               : unit, integration, functional, white-box,
+                                    black-box.
+  Phase 6  Deployment            : install on the server, load initial data.
+  Phase 7  Maintenance           : fixes, backups, and new features.
+
+10.2 TECHNOLOGY STACK
+-----------------------------------------------------------------------------
+  Front end : HTML5, CSS3, Bootstrap 5, Font Awesome, JavaScript
+  Back end  : PHP 8 (mysqli)
+  Database  : MySQL / MariaDB
+  Server    : Apache (XAMPP on Windows)
+  Tools     : VS Code, phpMyAdmin, web browser
+  Minimum PC (from the report): Pentium IV or above, 1 GB RAM, 80 GB disk.
+
+10.3 SYSTEM ARCHITECTURE (three layers)
+-----------------------------------------------------------------------------
+
+   [ Browser ]  ---- HTTP ---->  [ Apache + PHP ]  ---- SQL ---->  [ MySQL ]
+   Visitor / Admin /             Pages, sessions,                   Tables:
+   Sub-Admin / Faculty           validation, role checks            see 10.5
+
+  Presentation layer : HTML/CSS/Bootstrap pages.
+  Logic layer        : PHP scripts (login, CRUD, uploads, session checks).
+  Data layer         : MySQL tables accessed through config.php.
+
+10.4 FOLDER STRUCTURE
+-----------------------------------------------------------------------------
+
+  ProjectM/
+  |-- index.php                    Home page
+  |-- about.php                    About Us
+  |-- faculty.php                  Public faculty directory
+  |-- view-faculty-details.php     Single faculty profile (public)
+  |-- contact.php                  Contact Us
+  |-- login.php                    UNIFIED LOGIN (admin, faculty, sub-admin)
+  |-- config.php                   Database connection, URL constants, session
+  |-- database.sql                 Database structure and default data
+  |
+  |-- includes/
+  |     |-- header.php             Public navigation bar
+  |     |-- footer.php             Public footer
+  |     |-- sidebar.php            Admin panel sidebar
+  |     |-- subadmin-sidebar.php   Sub-admin panel sidebar
+  |
+  |-- assets/
+  |     |-- css/style.css          Site-wide styles
+  |     |-- js/script.js           Shared JavaScript
+  |     |-- uploads/               Uploaded profile pictures
+  |
+  |-- admin/
+  |     |-- login.php              Redirects to the unified login
+  |     |-- dashboard.php
+  |     |-- add-subadmin.php   manage-subadmins.php   edit-subadmin.php
+  |     |-- add-college.php    manage-colleges.php    edit-college.php
+  |     |-- add-faculty.php    manage-faculty.php     edit-faculty.php
+  |     |-- update-profile-pic.php
+  |     |-- change-password.php
+  |     |-- forgot-password.php
+  |     |-- logout.php
+  |
+  |-- subadmin/
+  |     |-- login.php              Redirects to the unified login
+  |     |-- dashboard.php
+  |     |-- add-college.php    manage-colleges.php    edit-college.php
+  |     |-- add-faculty.php    manage-faculty.php     edit-faculty.php
+  |     |-- update-profile-pic.php
+  |     |-- change-password.php
+  |     |-- logout.php
+  |
+  |-- faculty/
+        |-- login.php              Redirects to the unified login
+        |-- dashboard.php          My Profile
+        |-- edit-profile.php       Edit details and photo
+        |-- logout.php
+
+10.5 DATABASE DESIGN (database: college_management)
+-----------------------------------------------------------------------------
+
+  TABLE admins
+    id (PK, auto), username (unique), password, email, created_at
+
+  TABLE subadmins
+    id (PK), name, email (unique), username (unique), password,
+    profile, profile_image, created_at
+
+  TABLE colleges
+    id (PK), college_name, college_code (unique), address, phone, email,
+    created_at
+
+  TABLE faculty
+    id (PK), name, username (unique), password, college_id (FK -> colleges.id,
+    ON DELETE SET NULL), gender (Male/Female/Other), designation,
+    qualifications, phone, email, joining_date, address, profile_image,
+    created_at
+
+  TABLE pages
+    id (PK), page_name (unique: about / contact), content, created_at,
+    updated_at
+
+  TABLE contact_messages
+    id (PK), name, email, subject, message, created_at
+
+  Relationships:
+    colleges 1 ---- * faculty        (one college has many faculty)
+    admins, subadmins, faculty each carry their own login credentials.
+
+  Indexes: faculty(college_id), faculty(name), faculty(username),
+           colleges(college_code), subadmins(username),
+           contact_messages(created_at).
+
+  (The report names the original tables admin, tblcollege, tblfaculity, and
+   tblpage; the built project uses the names above.)
+
+10.6 LOGIN AND ACCESS FLOW
+-----------------------------------------------------------------------------
+
+   User opens login.php and submits username + password
+        |
+        v
+   Found in admins table?    --yes, password OK--> admin session
+        | no                                        --> admin/dashboard.php
+        v
+   Found in faculty table?   --yes, password OK--> faculty session
+        | no                                        --> faculty/dashboard.php
+        v
+   Found in subadmins table? --yes, password OK--> subadmin session
+        | no                                        --> subadmin/dashboard.php
+        v
+   "Invalid username"   (or "Invalid password" if the username was found but
+                          the password did not match)
+
+  Every protected page starts by loading config.php, starting the session,
+  and checking the matching session flag (admin_logged_in, faculty_logged_in,
+  or subadmin_logged_in). If the flag is missing the user is sent back to
+  the login page.
+
+10.7 PAGE FLOW
+-----------------------------------------------------------------------------
+
+  Public   : Home -> About / Faculty -> View Details / Contact -> Login
+  Admin    : Login -> Dashboard -> (Sub-Admins | Colleges | Faculty | Account)
+             -> Add / Manage -> Edit or Delete -> back to Manage list
+  Sub-Admin: Login -> Dashboard -> (Colleges | Faculty | Account)
+             -> Add / Manage -> Edit or Delete -> back to Manage list
+  Faculty  : Login -> My Profile -> Edit Profile -> Save -> My Profile
+
+10.8 RECOMMENDED BUILD ORDER FOR A NEW DEVELOPER
+-----------------------------------------------------------------------------
+
+  Step 1  Install XAMPP; start Apache and MySQL.
+  Step 2  Create the database and import database.sql in phpMyAdmin.
+  Step 3  Create the project folder in htdocs and add config.php
+          (URLs, session start, database connection).
+  Step 4  Build the shared includes (header, footer, sidebars) and
+          assets/css/style.css.
+  Step 5  Build the public pages (Home, About, Faculty, View Details,
+          Contact).
+  Step 6  Build the unified login.php and the logout scripts.
+  Step 7  Build the Admin panel: dashboard, sub-admins, colleges, faculty,
+          profile picture, change password, forgot password.
+  Step 8  Build the Sub-Admin panel (colleges, faculty, account pages).
+  Step 9  Build the Faculty area (dashboard, edit profile with photo upload).
+  Step 10 Test every page and role (see 10.9).
+  Step 11 Harden security (see Section 11) and back up the database.
+  Step 12 Deploy and train users.
+
+10.9 TEST PLAN (from the report)
+-----------------------------------------------------------------------------
+  Unit testing        : each form and script works on its own.
+  Integration testing : login -> dashboard -> add -> manage -> edit works
+                        as one flow.
+  Functional testing  : entries are in the correct format, no duplicate
+                        entries are accepted, all links open the right page.
+  Role testing        : each role can reach only its own pages; a logged-out
+                        user is always sent to the login page.
+  Black-box / white-box: test against requirements, then test internal logic
+                        and branches.
+  Test objectives     : all fields work, pages open from their links, and
+                        screens respond without delay.
+
+
+==============================================================================
+11. CURRENT STATUS AND RECOMMENDED NEXT STEPS
+==============================================================================
+
+Working now:
+  - Public website, unified login for admin / faculty / sub-admin.
+  - Admin dashboard, sub-admin management, college management, faculty
+    management, profile picture, change password.
+  - Sub-admin panel (colleges, faculty, profile picture, change password).
+  - Faculty dashboard and edit-profile page with photo upload.
+
+Items to check or build next:
+  1. admin/edit-faculty.php - the Edit button on Manage Faculty needs this
+     page (the sub-admin version can be copied and adjusted).
+  2. Website Pages manager - an admin page to edit the About Us and Contact Us
+     text stored in the pages table (described in the report).
+  3. Contact messages inbox - an admin page to read messages saved in the
+     contact_messages table.
+  4. Faculty change-password page.
+  5. Forgot Password - it currently checks the username and email only; it
+     does not yet send a reset link or email.
+  6. Password security - passwords are stored as plain text (with optional
+     MD5 detection; the report says MD5 is used). MD5 is not considered safe.
+     Before real use, switch to PHP password_hash() and password_verify().
+  7. Database queries - replace string-built SQL with prepared statements
+     (mysqli prepared statements) to prevent SQL injection.
+  8. Admin-only pages - keep the admin/ area checks strict, and consider
+     using the sub-admin "profile" field to set different permissions.
+  9. Backups - schedule regular exports of the college_management database.
+  10. Optional future modules from the report: attendance, leave, payroll,
+      performance evaluation, research publications, notices, and reports.
+
+==============================================================================
+END OF DOCUMENT
+==============================================================================

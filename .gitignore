@@ -1,0 +1,38 @@
+# Database credentials and sensitive files
+config.php
+
+# Upload directories
+assets/uploads/*
+!assets/uploads/.gitkeep``
+
+# Log files
+*.log
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Composer
+vendor/
+composer.lock
+
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Backup files
+*.bak
+*.backup

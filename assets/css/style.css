@@ -1,0 +1,305 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Navigation */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-left: 0.75rem;
+}
+
+.navbar-nav .nav-link {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-left: 1.8rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.85);
+    transition: color 0.25s ease;
+}
+
+.navbar-nav .nav-link:first-child {
+    margin-left: 0;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffc107 !important;
+}
+
+/* Hero Carousel */
+.carousel {
+    margin-bottom: 30px;
+}
+
+.carousel-item {
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+}
+
+.carousel-caption {
+    background: rgba(0,0,0,0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Cards */
+.card {
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Faculty Cards */
+.faculty-card {
+    text-align: center;
+    padding: 20px;
+}
+
+.faculty-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 15px;
+    border: 3px solid #007bff;
+}
+
+/* Admin Panel Styles */
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background: #2c3e50;
+    color: white;
+    min-height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.sidebar-header {
+    padding: 20px;
+    background: #1a252f;
+    text-align: center;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-menu li {
+    border-bottom: 1px solid #34495e;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 15px 20px;
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+    background: #3498db;
+}
+
+.sidebar-menu a i {
+    margin-right: 10px;
+    width: 20px;
+}
+
+.menu-header {
+    padding: 15px 20px;
+    background: #1a252f;
+    color: #bdc3c7;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.admin-content {
+    margin-left: 250px;
+    padding: 20px;
+    flex: 1;
+}
+
+/* Dashboard Stats */
+.stat-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.stat-card .icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.stat-card.primary { border-left: 4px solid #3498db; }
+.stat-card.success { border-left: 4px solid #2ecc71; }
+.stat-card.warning { border-left: 4px solid #f39c12; }
+.stat-card.danger { border-left: 4px solid #e74c3c; }
+
+.stat-card.primary .icon { color: #3498db; }
+.stat-card.success .icon { color: #2ecc71; }
+.stat-card.warning .icon { color: #f39c12; }
+.stat-card.danger .icon { color: #e74c3c; }
+
+/* Forms */
+.form-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+}
+
+/* Tables */
+.table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.table thead {
+    background: #3498db;
+    color: white;
+}
+
+/* Footer */
+.footer {
+    background: #2c3e50;
+    color: white;
+    padding: 30px 0;
+    margin-top: 50px;
+}
+
+.footer a {
+    color: #ecf0f1;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #3498db;
+}
+
+/* Alert Messages */
+.alert {
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+.btn {
+    margin-right: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        position: relative;
+    }
+    
+    .admin-content {
+        margin-left: 0;
+    }
+    
+    .faculty-card img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* About Page */
+.about-section {
+    padding: 40px 0;
+}
+
+.about-section h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* Contact Page */
+.contact-info {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.contact-info i {
+    font-size: 1.5rem;
+    color: #3498db;
+    margin-right: 15px;
+}
+
+/* Faculty Details Page */
+.faculty-details {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.faculty-details img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #3498db;
+}
+
+.faculty-info {
+    margin-top: 20px;
+}
+
+.faculty-info h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.faculty-info p {
+    margin-bottom: 10px;
+}
+
+.faculty-info strong {
+    color: #3498db;
+}
